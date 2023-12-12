@@ -6,14 +6,8 @@ fn process(input: &str) -> usize {
         let (_, card) = line.split_once(':').expect("Expected to find card number");
         let (my_nums_card, win_nums_card) =
             card.split_once('|').expect("Expected to find win/my nums");
-        let mut my_nums: HashSet<&str> = HashSet::new();
-        for num in my_nums_card.split_whitespace() {
-            my_nums.insert(num);
-        }
-        let mut win_nums: HashSet<&str> = HashSet::new();
-        for num in win_nums_card.split_whitespace() {
-            win_nums.insert(num);
-        }
+        let my_nums = my_nums_card.split_whitespace().collect::<HashSet<_>>();
+        let win_nums = win_nums_card.split_whitespace().collect::<HashSet<_>>();
         let matches = my_nums.intersection(&win_nums).count();
         if matches > 0 {
             result += usize::pow(2, (matches - 1) as u32);
